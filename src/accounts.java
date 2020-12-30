@@ -3,6 +3,7 @@ public class accounts {
     int id;
     String username;
     String password;
+    String test;
 
 
 
