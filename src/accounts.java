@@ -11,6 +11,13 @@ public class accounts {
 
 
 
+
+
+
+
+
+
+
     public int getId() {
         return id;
     }
@@ -34,6 +41,7 @@ public class accounts {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
 
 }

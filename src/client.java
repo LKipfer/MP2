@@ -16,8 +16,8 @@ public class client {
             //Remember \r\n because it marks the end of a line.
             //At the very end of the HTTP request we have to use \r\n\r\n as it ends the http request.
             }
-     catch (IOException e) {
-         e.printStackTrace();
+     catch (Exception e) {
+         System.err.println(e);
      }
 
 
