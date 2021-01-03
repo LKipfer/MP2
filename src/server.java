@@ -14,7 +14,7 @@ public class server extends Thread {
 
     @Override
     public void run() {
-        try (ServerSocket listener = new ServerSocket(port,10,null))
+        try (ServerSocket listener = new ServerSocket(50001,10,null))
         {
          logger.info("Listening on port " + port);
 
