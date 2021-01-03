@@ -29,7 +29,7 @@ public class server extends Thread {
                  logger.info("Request from client " + client.getInetAddress().toString() + " for server " + client.getLocalAddress().toString());
 
                  //Send our reply using HTTP 1.0
-                 out.print("HTTP/1.0 200 \r\n"); //Version and Status
+                 out.print("HTTP/1.0 200m \r\n"); //Version and Status
                  out.print("Content-Type: text/plain\r\n");
                  out.print("\r\n"); //This signalizes the end of the request, so server knows it should start reading
 
