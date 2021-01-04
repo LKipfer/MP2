@@ -1,3 +1,5 @@
+package Mini_Project_2_LK;
+
 public class accounts {
 
     private int id;
