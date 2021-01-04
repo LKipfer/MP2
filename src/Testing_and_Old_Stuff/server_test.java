@@ -1,14 +1,12 @@
-package Mini_Project_2_LK;
+package Testing_and_Old_Stuff;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.Buffer;
 
-public class server {
+public class server_test {
 
     public static void main(String[] args){
         //All of this would be placed inside the run method of a thread, instead of the main method.
