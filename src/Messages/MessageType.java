@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * This class defines all available message types. We provide static functions
- * to map between tye types and the value of the enumeration.
+ * to map between the types and the value of the enumeration.
  */
 public enum MessageType {
     ChangePw,
