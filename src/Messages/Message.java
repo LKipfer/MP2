@@ -154,6 +154,7 @@ public abstract class Message {
             else if (type == MessageType.CreateToDo) newMessage = new Msg_CreateToDo();
             else if (type == MessageType.DeleteToDo) newMessage = new Msg_DeleteToDo();
             else if (type == MessageType.GetToDo) newMessage = new Msg_GetToDo();
+            else if (type == MessageType.Goodbye) newMessage = new Msg_Goodbye();
             else if (type == MessageType.ListToDo) newMessage = new Msg_ListToDo();
             else if (type == MessageType.Login) newMessage = new Msg_Login();
             else if (type == MessageType.Logout) newMessage = new Msg_Logout();

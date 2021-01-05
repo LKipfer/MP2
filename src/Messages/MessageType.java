@@ -1,7 +1,5 @@
 package Messages;
 
-import java.util.List;
-
 /**
  * This class defines all available message types. We provide static functions
  * to map between the types and the value of the enumeration.
@@ -11,12 +9,13 @@ public enum MessageType {
     CreateLogin,
     CreateToDo,
     DeleteToDo,
+    Error,
     GetToDo,
+    Goodbye,
     ListToDo,
     Login,
     Logout,
-    Ping,
-    Error;
+    Ping;
 
     public static MessageType parseType(String typeName) {
         MessageType type = MessageType.Error;
@@ -36,6 +35,7 @@ public enum MessageType {
         else if (msg instanceof Msg_CreateToDo) type = CreateToDo;
         else if (msg instanceof Msg_DeleteToDo) type = DeleteToDo;
         else if (msg instanceof Msg_GetToDo) type = GetToDo;
+        else if (msg instanceof Msg_Goodbye) type = Goodbye;
         else if (msg instanceof Msg_ListToDo) type = ListToDo;
         else if (msg instanceof Msg_Login) type = Login;
         else if (msg instanceof Msg_Logout) type = Logout;

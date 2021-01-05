@@ -15,8 +15,6 @@ public class todo {
 
 
 
-
-
     public int getId() {
         return id;
     }

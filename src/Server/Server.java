@@ -14,7 +14,7 @@ public class Server extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("ServerView.fxml"));
         primaryStage.setTitle("ToDo Server");
-        primaryStage.setScene(new Scene(root, 800, 400));
+        primaryStage.setScene(new Scene(root, 1000, 400));
         primaryStage.show();
     }
 

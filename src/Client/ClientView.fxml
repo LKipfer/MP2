@@ -91,12 +91,12 @@
             </TextField>
          </children>
       </VBox>
-      <Button fx:id="btn_Create" layoutX="124.0" layoutY="180.0" mnemonicParsing="false" text="Create a task" />
-      <Button fx:id="btn_Delete" layoutX="264.0" layoutY="180.0" mnemonicParsing="false" text="Delete marked" />
-      <Button fx:id="btn_ListAll" layoutX="401.0" layoutY="180.0" mnemonicParsing="false" text="List all Entries" />
-      <Button fx:id="btn_CreateLogin" layoutX="629.0" layoutY="137.0" mnemonicParsing="false" text="Create Login" />
-      <Button fx:id="btn_ChangePw" layoutX="733.0" layoutY="137.0" mnemonicParsing="false" text="Change Password" />
-      <Button fx:id="btn_Login" layoutX="864.0" layoutY="137.0" mnemonicParsing="false" text="Log in" />
-      <Button fx:id="btn_Logout" layoutX="931.0" layoutY="137.0" mnemonicParsing="false" text="Log out" />
+      <Button fx:id="btn_Create" layoutX="124.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleBtnCreateTask" text="Create a task" />
+      <Button fx:id="btn_Delete" layoutX="264.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleBtnDelete" text="Delete marked" />
+      <Button fx:id="btn_ListAll" layoutX="401.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleBtnList" text="List all Entries" />
+      <Button fx:id="btn_CreateLogin" layoutX="629.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleBtnCreateLogin" text="Create Login" />
+      <Button fx:id="btn_ChangePw" layoutX="733.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleBtnChangePw" text="Change Password" />
+      <Button fx:id="btn_Login" layoutX="864.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleBtnLogin" text="Log in" />
+      <Button fx:id="btn_Logout" layoutX="931.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleBtnLogout" text="Log out" />
    </children>
 </AnchorPane>

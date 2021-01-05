@@ -1,53 +1,65 @@
 package Server;
 
 
-import java.io.BufferedReader;
+import Messages.*;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Logger;
 
 public class ServerThreadForClient extends Thread {
-    private static int clientNumber = 0;
     private final Logger logger = Logger.getLogger("");
-    private Socket socket;
+    private Socket clientSocket;
 
-    public ServerThreadForClient(Socket socket) {
-        super("Client thread" +clientNumber++);
-        this.socket = socket;
+
+    public ServerThreadForClient(Socket clientSocket) {
+        this.clientSocket = clientSocket;
     }
+
+    //Process messages until Client says "Goodbye"
 
     @Override
     public void run() {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             PrintWriter out = new PrintWriter(socket.getOutputStream());)
-        {
-            logger.info("Request from client " + socket.getInetAddress().toString() + " for server " + socket.getLocalAddress().toString());
+        logger.info("Request from client " + clientSocket.getInetAddress().toString() + " for server " + clientSocket.getLocalAddress().toString());
 
-            //Send our reply using HTTP 1.0
-            out.print("HTTP/1.0 200m \r\n"); //Version and Status
-            out.print("Content-Type: text/plain\r\n");
-            out.print("\r\n"); //This signalizes the end of the request, so server knows it should start reading
 
-            //Read request from client and interact accordingly
-            //An empty string (length 0) is the end of an HTTP request
-            StringBuilder received = new StringBuilder();
-            String inString;
-            while ((inString = in.readLine()) != null && inString.length() != 0)
-            {
-                received.append(inString + "\n");
-            }
+        try {
+            // Read a message from the client
+            Message msgIn = Message.receive(clientSocket);
+            Message msgOut = processMessage(msgIn);
+            msgOut.send(clientSocket);
+            logger.info("Answered with: " + msgOut.toString());
+        } catch (Exception e) {
+            logger.severe(e.toString());
+        } finally {
+            try { if (clientSocket != null) clientSocket.close(); } catch (IOException e) {}
+        }
 
-            //Send output back
-            String outString = received.toString();
-            out.print(outString);
-            logger.info("Request contents:\n" + outString);
-
-            out.flush();
-            socket.close();
-
-        } catch (IOException e)
-        {logger.warning(e.toString()); }
     }
+
+    private Message processMessage(Message msgIn) {
+        logger.info("Message received from client: "+ msgIn.toString());
+        String clientName = msgIn.getClient();
+
+        Message msgOut = null;
+        switch (MessageType.getType(msgIn)) {
+            case ChangePw:
+                msgOut = new Msg_ChangePw();
+                break;
+            case CreateLogin:
+                Msg_CreateLogin newLogin_msg = (Msg_CreateLogin) msgIn;
+                Message_NewCustomerAccepted nca_msg = new Message_NewCustomerAccepted();
+                nca_msg.setName(newLogin_msg.getName());
+                msgOut = nca_msg;
+                break;
+            case Goodbye:
+                msgOut = new Msg_Goodbye();
+                break;
+            default:
+                msgOut = new Msg_Error();
+        }
+        msgOut.setClient(clientName);
+        return msgOut;
+    }
+
 }
