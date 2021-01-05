@@ -1,6 +1,18 @@
 package Messages;
 
-public class Msg_CreateToDo {
+import java.util.ArrayList;
+
+public class Msg_CreateToDo extends Message{
+
+    @Override
+    protected void receiveAttributes(ArrayList<NameValue> attributes) {
+
+    }
+
+    @Override
+    protected void sendAttributes(ArrayList<NameValue> attributes) {
+
+    }
 
     //All commands that work with ToDos...
     //- ...require a valid token (the user must be logged in)

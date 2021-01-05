@@ -1,6 +1,18 @@
 package Messages;
 
-public class Msg_ChangePw {
+import java.util.ArrayList;
+
+public class Msg_ChangePw extends Message {
+
+    @Override
+    protected void receiveAttributes(ArrayList<NameValue> attributes) {
+
+    }
+
+    @Override
+    protected void sendAttributes(ArrayList<NameValue> attributes) {
+
+    }
 
     /*
     Data:   New Password

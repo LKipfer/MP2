@@ -1,6 +1,17 @@
 package Messages;
 
-public class Msg_Ping {
+import java.util.ArrayList;
+
+public class Msg_Ping extends Message {
+    @Override
+    protected void receiveAttributes(ArrayList<NameValue> attributes) {
+
+    }
+
+    @Override
+    protected void sendAttributes(ArrayList<NameValue> attributes) {
+
+    }
 
     /*
     Data:   [Token]
