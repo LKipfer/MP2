@@ -39,26 +39,46 @@ public class ServerThreadForClient extends Thread {
 
     private Message processMessage(Message msgIn) {
         logger.info("Message received from client: "+ msgIn.toString());
-        String clientName = msgIn.getClient();
+        //String clientName = msgIn.getClient();
 
         Message msgOut = null;
         switch (MessageType.getType(msgIn)) {
             case ChangePw:
-                msgOut = new Msg_ChangePw();
+                msgOut = new Msg_Result();
                 break;
-            case CreateLogin:
+            case CreateLogin:   //probably wrong
                 Msg_CreateLogin newLogin_msg = (Msg_CreateLogin) msgIn;
-                Message_NewCustomerAccepted nca_msg = new Message_NewCustomerAccepted();
-                nca_msg.setName(newLogin_msg.getName());
-                msgOut = nca_msg;
+                Msg_Result nla_msg = new Msg_Result();
+                msgOut = nla_msg;
+                break;
+            case CreateToDo:
+                msgOut = new Msg_Result();
+                break;
+            case DeleteToDo:
+                msgOut = new Msg_Result();
+                break;
+            case GetToDo:
+                msgOut = new Msg_Result();
                 break;
             case Goodbye:
-                msgOut = new Msg_Goodbye();
+                msgOut = new Msg_Result();
+                break;
+            case ListToDo:
+                msgOut = new Msg_Result();
+                break;
+            case Login:
+                msgOut = new Msg_Result();
+                break;
+            case Logout:
+                msgOut = new Msg_Result();
+                break;
+            case Ping:
+                msgOut = new Msg_Result();
                 break;
             default:
-                msgOut = new Msg_Error();
+                msgOut = new Msg_Result();
         }
-        msgOut.setClient(clientName);
+        //msgOut.setClient(clientName);
         return msgOut;
     }
 

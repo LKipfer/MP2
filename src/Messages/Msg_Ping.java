@@ -2,20 +2,19 @@ package Messages;
 
 import java.util.ArrayList;
 
+
 public class Msg_Ping extends Message {
-    @Override
-    protected void receiveAttributes(ArrayList<NameValue> attributes) {
 
+    public Msg_Ping() {
+        super();
     }
 
     @Override
-    protected void sendAttributes(ArrayList<NameValue> attributes) {
-
+    protected void receiveAttributes(ArrayList<NameValue> pairs) {
     }
 
-    /*
-    Data:   [Token]
-    Notes:  Without token: always succeeds
-            With token: succeeds only if token is valid
-     */
+    @Override
+    protected void sendAttributes(ArrayList<NameValue> pairs) {
+    }
 }
+

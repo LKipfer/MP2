@@ -2,12 +2,17 @@ package Messages;
 
 import java.util.ArrayList;
 
-public class Msg_Error extends Message {
+//THIS IS THE ONLY MESSAGE THAT THE SERVER WILL USE TO ANSWER
+
+//  Changed Message_NewCustomerAccepted:
+//  name -> username
+
+public class Msg_Result extends Message {
     private static final String ELEMENT_INFO = "info";
 
     private String info;
 
-    public Msg_Error() {
+    public Msg_Result() {
         super();
     }
 

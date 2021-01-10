@@ -39,6 +39,15 @@ public class ClientController implements Initializable {
     public TextField tf_Desc;
     @FXML
     public TextField tf_Priority;
+
+    public TextField getTf_Username() {
+        return tf_Username;
+    }
+
+    public void setTf_Username(TextField tf_Username) {
+        this.tf_Username = tf_Username;
+    }
+
     @FXML
     public TextField tf_Username;
     @FXML
@@ -65,9 +74,9 @@ public class ClientController implements Initializable {
 
     public void handleBtnDelete(ActionEvent actionEvent)
     {
-        DeleteSelectedRow();
+        //DeleteSelectedRow();
         //SaveToFile();
-        table_ToDo.refresh();
+        //table_ToDo.refresh();
     }
 
     public void handleBtnList(ActionEvent actionEvent)
@@ -117,7 +126,7 @@ public class ClientController implements Initializable {
 
             for (var item:table_ToDo.getItems()
             ) {
-                fw.write(String.format("%s-%s-%s-%s-%s-%s", item.getId(), item.getName(), item.getArea(), item.getPopulation(), item.getFog(), item.getListOfStates()));
+                fw.write(String.format("%s|%s|%s|%s|%s|%s", item.getId(), item.getName(), item.getArea(), item.getPopulation(), item.getFog(), item.getListOfStates()));
                 fw.write(System.lineSeparator());
             }
 

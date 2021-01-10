@@ -9,16 +9,16 @@ public enum MessageType {
     CreateLogin,
     CreateToDo,
     DeleteToDo,
-    Error,
     GetToDo,
     Goodbye,
     ListToDo,
     Login,
     Logout,
-    Ping;
+    Ping,
+    Result;
 
     public static MessageType parseType(String typeName) {
-        MessageType type = MessageType.Error;
+        MessageType type = MessageType.Result;
         for (MessageType value : MessageType.values()) {
             if (value.toString().equals(typeName)) type = value;
         }
@@ -29,7 +29,7 @@ public enum MessageType {
      * Determine the message type from the actual class of this object
      */
     public static MessageType getType(Message msg) {
-        MessageType type = MessageType.Error;
+        MessageType type = MessageType.Result;
         if (msg instanceof Msg_ChangePw) type = ChangePw;
         else if (msg instanceof Msg_CreateLogin) type = CreateLogin;
         else if (msg instanceof Msg_CreateToDo) type = CreateToDo;

@@ -4,9 +4,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+
+
 public class ServerModel extends Thread {
 
     private Integer port;
+    private Integer token = 100;
     private final Logger logger = Logger.getLogger("");
 
     @Override
@@ -28,4 +31,14 @@ public class ServerModel extends Thread {
     public void setPort(Integer port)
     {this.port = port;}
 
+    public void passwordChecker() {
+
+    }
+
+    public void tokenGenerator(Integer token){
+        this.token = token++;
+        //math.random oder so en scheiss
+        //mal für de afang mit token++ ab 100
+
+    }
 }
