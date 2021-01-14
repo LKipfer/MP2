@@ -1,174 +1,65 @@
 package Client;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class ClientController {
 
-public class ClientController implements Initializable {
-    @FXML
-    public TextArea Log_TextArea;
-    @FXML
-    public Label lbl_Title;
-    @FXML
-    public Label lbl_Desc;
-    @FXML
-    public Label lbl_Priority;
-    @FXML
-    public Label lbl_Username;
-    @FXML
-    public Label lbl_Password;
-    @FXML
-    public TableView table_ToDo;
-    @FXML
-    public TableColumn tv_Name;
-    @FXML
-    public TableColumn tv_ID;
-    @FXML
-    public TableColumn tv_Title;
-    @FXML
-    public TableColumn tv_Desc;
-    @FXML
-    public TableColumn tv_Priority;
-    @FXML
-    public TextField tf_Title;
-    @FXML
-    public TextField tf_Desc;
-    @FXML
-    public TextField tf_Priority;
+    final private ClientModel model;
+    final private ClientView view;
 
-    public TextField getTf_Username() {
-        return tf_Username;
-    }
+    protected ClientController(ClientModel model, ClientView view) {
+        this.model = model;
+        this.view = view;
 
-    public void setTf_Username(TextField tf_Username) {
-        this.tf_Username = tf_Username;
-    }
-
-    @FXML
-    public TextField tf_Username;
-    @FXML
-    public TextField tf_Password;
-    @FXML
-    public Button btn_Create;
-    @FXML
-    public Button btn_Delete;
-    @FXML
-    public Button btn_ListAll;
-    @FXML
-    public Button btn_CreateLogin;
-    @FXML
-    public Button btn_ChangePw;
-    @FXML
-    public Button btn_Login;
-    @FXML
-    public Button btn_Logout;
-
-    public void handleBtnCreateTask(ActionEvent actionEvent)
-    {
-        //add Method
-    }
-
-    public void handleBtnDelete(ActionEvent actionEvent)
-    {
-        //DeleteSelectedRow();
-        //SaveToFile();
-        //table_ToDo.refresh();
-    }
-
-    public void handleBtnList(ActionEvent actionEvent)
-    {
-        table_ToDo.refresh();
-    }
-
-    public void handleBtnCreateLogin(ActionEvent actionEvent)
-    {
-        //add Method
-    }
-
-    public void handleBtnChangePw(ActionEvent actionEvent)
-    {
-        //add Method
-    }
-
-    public void handleBtnLogin(ActionEvent actionEvent)
-    {
-        //add Method
-    }
-
-    public void handleBtnLogout(ActionEvent actionEvent)
-    {
-        //add Method
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-
-    }
-
-
-    private void DeleteSelectedRow()
-    {
-        table_ToDo.getItems().removeAll(table_ToDo.getSelectionModel().getSelectedItem());
-    }
-
-    /* FILEWRITER
-    private void SaveToFile()
-    {
-        FileWriter fw;
-
-        try{
-            fw = new FileWriter(new File("todo-savefile.txt"));
-
-            for (var item:table_ToDo.getItems()
-            ) {
-                fw.write(String.format("%s|%s|%s|%s|%s|%s", item.getId(), item.getName(), item.getArea(), item.getPopulation(), item.getFog(), item.getListOfStates()));
-                fw.write(System.lineSeparator());
+        // register ourselves to listen for button clicks
+        view.btnGo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String ip = view.txtIP.getText();
+                Integer port = new Integer(view.txtPort.getText());
+                model.init(ip, port);
+                view.txtMessages.setText("Initialized");
             }
+        });
 
-            fw.close();
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
-    }*/
-
-    /*  FILEREADER
-    private String[] ReadFromFile()
-    {
-        BufferedReader fr;
-        String[] lineList;
-
-        try{
-            fr = new BufferedReader(new FileReader("todo-savefile.txt"));
-
-            int lines = 0;
-            while (fr.readLine() != null) {
-                lines++;
+        // register ourselves to listen for button clicks
+        view.btnHello.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String result = model.sayChangePw(view.txtClientName.getText());
+                view.txtMessages.appendText("\nSaid 'change password', received: " + result);
             }
+        });
 
-            fr = new BufferedReader(new FileReader("todo-savefile.txt"));
-            lineList = new String[lines];
-            int i = 0;
-            while (i < lines)
-            {
-                lineList[i] = fr.readLine();
-                i++;
+        // register ourselves to listen for button clicks
+        view.btnNewClient.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String result = model.sayCreateLogin(view.txtClientName.getText());
+                view.txtMessages.appendText("\nSaid 'create login', received: " + result);
             }
+        });
 
-            return lineList;
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-            return null;
-        }
-    } */
+        // register ourselves to listen for button clicks
+        view.btnGoodbye.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String result = model.sayCreateToDo(view.txtClientName.getText());
+                view.txtMessages.appendText("\nSaid 'create to do', received: " + result);
+            }
+        });
 
-
+        // register ourselves to handle window-closing event
+        view.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                view.stop();
+                Platform.exit();
+            }
+        });
+    }
 }
+

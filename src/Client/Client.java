@@ -1,31 +1,41 @@
 package Client;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Client extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ClientView.fxml"));
-        primaryStage.setTitle("ToDo Client");
-        primaryStage.setScene(new Scene(root, 1200, 800));
-        primaryStage.show();
-    }
+    private ClientView view;
+    private ClientController controller;
+    private ClientModel model;
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Note the dependencies between model, view and controller. Additionally,
+     * the view needs the primaryStage created by JavaFX.
+     */
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        // Initialize the GUI
+        model = new ClientModel();
+        view = new ClientView(primaryStage, model);
+        controller = new ClientController(model, view);
+
+        // Display the GUI after all initialization is complete
+        view.start();
     }
 
+    /**
+     * The stop method is the opposite of the start method. It provides an
+     * opportunity to close down the program gracefully, when the program has
+     * been closed.
+     */
+    @Override
+    public void stop() {
+        if (view != null)
+            view.stop();
+    }
+}
