@@ -29,8 +29,8 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Msg_ChangePw msgOut = new Msg_ChangePw();
-            msgOut.setClient(clientName);
-            msgOut.getUsername();
+            //msgOut.setClient(clientName);
+            msgOut.setUsername("Peter");
             msgOut.setPassword("124");
             try {
                 msgOut.send(socket);
@@ -49,7 +49,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Msg_CreateLogin msgOut = new Msg_CreateLogin();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             msgOut.setUsername("Jennifer Jumpingjacks");
             msgOut.setPassword("123");
             try {
@@ -69,7 +69,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_CreateToDo();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -87,7 +87,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_DeleteToDo();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -105,7 +105,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_GetToDo();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -123,7 +123,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_ListToDo();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -141,7 +141,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_Login();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -159,7 +159,7 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_Logout();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -177,7 +177,25 @@ public class ClientModel {
         Socket socket = connect();
         if (socket != null) {
             Message msgOut = new Msg_Ping();
-            msgOut.setClient(clientName);
+            //msgOut.setClient(clientName);
+            try {
+                msgOut.send(socket);
+                Message msgIn = Message.receive(socket);
+                result = msgIn.toString();
+            } catch (Exception e) {
+                result = e.toString();
+            }
+            try { if (socket != null) socket.close(); } catch (IOException e) {}
+        }
+        return result;
+    }
+
+    public String sayGoodbye(String clientName) {
+        String result = null;
+        Socket socket = connect();
+        if (socket != null) {
+            Message msgOut = new Msg_Goodbye();
+            //msgOut.setClient(clientName);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 //THIS IS THE ONLY MESSAGE THAT THE SERVER WILL USE TO ANSWER
 
-//  Changed Message_NewCustomerAccepted:
-//  name -> username
-
 public class Msg_Result extends Message {
     private static final String ELEMENT_INFO = "info";
 

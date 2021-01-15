@@ -39,7 +39,7 @@ public class ServerThreadForClient extends Thread {
 
     private Message processMessage(Message msgIn) {
         logger.info("Message received from client: "+ msgIn.toString());
-        String clientName = msgIn.getClient();
+        // String clientName = msgIn.getClient();
 
         Message msgOut = null;
         switch (MessageType.getType(msgIn)) {
@@ -51,8 +51,15 @@ public class ServerThreadForClient extends Thread {
 			nca_msg.setName(nc_msg.getName());
 			msgOut = nca_msg;
 
-			*/
+
+
+			_________________________________________________________________________
+
+			OLD STUFF: (Server will only answer with message result)
+
+            */
             case ChangePw:
+                Msg_ChangePw cp_msg = (Msg_ChangePw) msgIn;
                 msgOut = new Msg_ChangePw();
                 break;
             case CreateLogin:
@@ -68,8 +75,8 @@ public class ServerThreadForClient extends Thread {
                 msgOut = new Msg_GetToDo();
                 break;
             case Goodbye:
-                msgOut = new Msg_Goodbye();
-                break;
+			    msgOut = new Msg_Goodbye();
+			    break;
             case ListToDo:
                 msgOut = new Msg_ListToDo();
                 break;
@@ -82,10 +89,12 @@ public class ServerThreadForClient extends Thread {
             case Ping:
                 msgOut = new Msg_Ping();
                 break;
+
+
             default:
                 msgOut = new Msg_Result();
         }
-        msgOut.setClient(clientName);
+        // msgOut.setClient(clientName);
         return msgOut;
     }
 

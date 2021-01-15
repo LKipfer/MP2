@@ -27,19 +27,17 @@ public abstract class Message {
     // Static names of elements and attributes that we use in
     // We use these names to find particular elements in the document
     private static final String ATTR_TYPE = "type";
-    private static final String ATTR_CLIENT = "client";
+    // private static final String ATTR_CLIENT = "client";
     private static final String ATTR_TOKEN = "token";
-
-    //maybe create token here?
 
     // The String corresponding to a message object
     private String message;
 
     // Data included in a message
     private long token;
-    private String client;
+    //private String client;
 
-    // Generator for a unique message ID
+    // To Do: Generator for a unique message ID
     private static long tokenID = 0;
 
     /**
@@ -79,17 +77,17 @@ public abstract class Message {
         message = null; // Not yet constructed
     }
 
-    /*
+    /**
      * Subclasses must fill in their own attributes from a received message
      */
     protected abstract void receiveAttributes(ArrayList<NameValue> attributes);
 
-    /*
+    /**
      * Subclasses must encode their attributes into a substring, for sending
      */
     protected abstract void sendAttributes(ArrayList<NameValue> attributes);
 
-    /*
+    /**
      * Send this message, as text, over the given socket
      *
      * @param s The socket to use when sending the message
@@ -98,8 +96,6 @@ public abstract class Message {
         // Set the message id before sending (if not already done)
         if (this.token == -1) this.token = nextMessageToken();
 
-        // Set the timestamp, DELETED
-        // this.timestamp = System.currentTimeMillis();
 
         // Convert to message format
         message = this.toString();
@@ -168,9 +164,9 @@ public abstract class Message {
             newMessage = msg;
         } else {
             // no clue what this does?
-            // newMessage.setId(Long.parseLong(findAttribute(pairs, ATTR_TOKEN)));
+            newMessage.setToken(Long.parseLong(findAttribute(pairs, ATTR_TOKEN)));
             // DELETED: newMessage.setTimestamp(Long.parseLong(findAttribute(pairs, ATTR_TIMESTAMP)));
-            newMessage.setClient(findAttribute(pairs, ATTR_CLIENT));
+            // newMessage.setClient(findAttribute(pairs, ATTR_CLIENT));
         }
 
         // Let the subclass read its additional attributes from the document
@@ -205,7 +201,7 @@ public abstract class Message {
         ArrayList<NameValue> pairs = new ArrayList<>();
 
         pairs.add(new NameValue(ATTR_TYPE, MessageType.getType(this).toString()));
-        pairs.add(new NameValue(ATTR_CLIENT, this.client));
+        // pairs.add(new NameValue(ATTR_CLIENT, this.client));
         pairs.add(new NameValue(ATTR_TOKEN, Long.toString(this.token)));
         // pairs.add(new NameValue(ATTR_TIMESTAMP, Long.toString(this.timestamp)));
 
@@ -231,13 +227,13 @@ public abstract class Message {
         this.token = token;
     }
 
-    public String getClient() {
+    /*public String getClient() {
         return client;
     }
 
     public void setClient(String client) {
         this.client = client;
     }
-
+     */
 }
 
