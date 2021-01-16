@@ -31,26 +31,33 @@ public abstract class Message {
 
     private static final String ATTR_TYPE = "type";
     private static final String ATTR_TOKEN = "token";
-    private static final String ATTR_ID = "id";
+    //private static final String ATTR_ID = "id";
+    private static final String ATTR_DATA = "data";
 
     // The String corresponding to a message object
     private String message;
 
     // Data included in a message
-    private long id;
-    //private String client;
 
-    // To Do: Generator for a unique message ID
-    private static long messageID = 0;
+    //private long id;
+    //private String client;
+    private long token = 1;
+    private String data;
+
+
+    // To Do: Generator for a unique token
+
+    // private static long messageID = 0;
 
     /**
      * Increment the global messageID
      *
      * @return the next valid ID
      */
+    /*
     private static long nextMessageID() {
         return messageID++;
-    }
+    } */
 
     /**
      * Inner class to represent one name/value pair
@@ -76,7 +83,7 @@ public abstract class Message {
      */
 
     protected Message() {
-        this.id = -1;
+        // this.id = -1;
         message = null; // Not yet constructed
     }
 
@@ -97,7 +104,7 @@ public abstract class Message {
      */
     public void send(Socket s) {
         // Set the message id before sending (if not already done)
-        if (this.id == -1) this.id = nextMessageID();
+        // if (this.id == -1) this.id = nextMessageID();
 
 
         // Convert to message format
@@ -106,7 +113,7 @@ public abstract class Message {
         try { // Ignore IO errors
             OutputStreamWriter out = new OutputStreamWriter(s.getOutputStream());
             out.write(message);
-            out.write("\n"); // empty line to end message
+            out.write("\n"); // empty line to end message, MUST STAY
             out.flush();
             s.shutdownOutput(); // ends output without closing socket
         } catch (Exception e) {
@@ -128,13 +135,13 @@ public abstract class Message {
         StringBuffer buf = new StringBuffer();
         String msgIn = in.readLine();
         while (msgIn != null && msgIn.length() > 0) {
-            buf.append(msgIn + "\n");
+            buf.append(msgIn + "\n");                                                                                   //PROBABLY HAVE TO CHANGE TO | HERE
             msgIn = in.readLine();
         }
         msgIn = buf.toString();
 
         // Parse into name/value pairs, then parse the pairs
-        String[] nameValuePairs = msgIn.split("\n");
+        String[] nameValuePairs = msgIn.split("\n");                                                               //PROBABLY HAVE TO CHANGE TO | HERE
         ArrayList<NameValue> pairs = new ArrayList<>();
         for (String nvPair : nameValuePairs) {
             int equalPos = nvPair.indexOf('=');
@@ -160,22 +167,32 @@ public abstract class Message {
             else if (type == MessageType.Login) newMessage = new Msg_Login();
             else if (type == MessageType.Logout) newMessage = new Msg_Logout();
             else if (type == MessageType.Ping) newMessage = new Msg_Ping();
+            else if (type == MessageType.Result) newMessage = new Msg_Result();
         }
+        /* NOTE TO SELF:
+
+        I think i need to determine here whether the attribute Token or Data needs to be included in the answer message.
+
+        */
         if (!allOk) {
-            Msg_Result msg = new Msg_Result();
+            Msg_Error msg = new Msg_Error();
             msg.setInfo("Error parsing received message");
             newMessage = msg;
         } else {
-            // no clue what this does?
-            newMessage.setId(Long.parseLong(findAttribute(pairs, ATTR_ID)));
-            // DELETED: newMessage.setTimestamp(Long.parseLong(findAttribute(pairs, ATTR_TIMESTAMP)));
+
+            // newMessage.setId(Long.parseLong(findAttribute(pairs, ATTR_ID)));
+            // newMessage.setTimestamp(Long.parseLong(findAttribute(pairs, ATTR_TIMESTAMP)));
             // newMessage.setClient(findAttribute(pairs, ATTR_CLIENT));
+
+            newMessage.setToken(Long.parseLong(findAttribute(pairs, ATTR_TOKEN)));
+            newMessage.setData(findAttribute(pairs, ATTR_DATA));
         }
 
         // Let the subclass read its additional attributes from the document
         newMessage.receiveAttributes(pairs);
 
         return newMessage;
+
     }
 
     /**
@@ -204,14 +221,17 @@ public abstract class Message {
         ArrayList<NameValue> pairs = new ArrayList<>();
 
         pairs.add(new NameValue(ATTR_TYPE, MessageType.getType(this).toString()));
+        pairs.add(new NameValue(ATTR_TOKEN, Long.toString(this.token)));
+        pairs.add(new NameValue(ATTR_DATA, this.data));
+
         // pairs.add(new NameValue(ATTR_CLIENT, this.client));
-        pairs.add(new NameValue(ATTR_ID, Long.toString(this.id)));
+        // pairs.add(new NameValue(ATTR_ID, Long.toString(this.id)));
         // pairs.add(new NameValue(ATTR_TIMESTAMP, Long.toString(this.timestamp)));
 
         // Let the subclass add additional nodes, as required
         this.sendAttributes(pairs);
 
-        // Convert all attributes into strings, and concatenate them
+        // Convert all attributes into strings, and concatenate them                                                    //PROBABLY HAVE TO CHANGE TO | HERE
         StringBuilder buf = new StringBuilder();
         for (NameValue pair : pairs) {
             buf.append(pair.toString() + "\n");
@@ -222,21 +242,21 @@ public abstract class Message {
 
     // --- Getters and Setters ---
 
-    public long getId() {
-        return id;
+    public long getToken() {
+        return token;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setToken(long token) {
+        this.token = token;
     }
 
-    /*public String getClient() {
-        return client;
+    public String getData() {
+        return data;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setData(String data) {
+        this.data = data;
     }
-     */
+
 }
 

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 //THIS IS THE ONLY MESSAGE THAT THE SERVER WILL USE TO ANSWER
 
 public class Msg_Result extends Message {
-    private static final String ELEMENT_INFO = "info";
+    private static final String ELEMENT_USERNAME = "username";
 
-    private String info = "test";
+    private String username;
+
 
     public Msg_Result() {
         super();
@@ -15,19 +16,22 @@ public class Msg_Result extends Message {
 
     @Override
     protected void receiveAttributes(ArrayList<NameValue> pairs) {
-        this.info = findAttribute(pairs, ELEMENT_INFO);
+        this.username = findAttribute(pairs, ELEMENT_USERNAME);
+
     }
 
     @Override
     protected void sendAttributes(ArrayList<NameValue> pairs) {
-        pairs.add(new NameValue(ELEMENT_INFO, this.info));
+        pairs.add(new NameValue(ELEMENT_USERNAME, this.username));
+
     }
 
-    public String getInfo() {
-        return info;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

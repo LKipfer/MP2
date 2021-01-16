@@ -51,8 +51,6 @@ public class ServerThreadForClient extends Thread {
 			nca_msg.setName(nc_msg.getName());
 			msgOut = nca_msg;
 
-
-
 			_________________________________________________________________________
 
 			OLD STUFF: (Server will only answer with message result)
@@ -81,7 +79,11 @@ public class ServerThreadForClient extends Thread {
                 msgOut = new Msg_ListToDo();
                 break;
             case Login:
-                msgOut = new Msg_Login();
+                Msg_Login login_msg = (Msg_Login) msgIn;
+                Msg_Result result_msg = new Msg_Result();
+                result_msg.setUsername(login_msg.getUsername());
+                msgOut = result_msg;
+                System.out.println("msgOut isch: " + msgOut);
                 break;
             case Logout:
                 msgOut = new Msg_Logout();
@@ -94,7 +96,7 @@ public class ServerThreadForClient extends Thread {
             default:
                 msgOut = new Msg_Result();
         }
-        // msgOut.setClient(clientName);
+
         return msgOut;
     }
 
