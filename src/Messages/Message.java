@@ -23,6 +23,7 @@ import java.util.Iterator;
  * Each message is uniquely identified with an ID and a timestamp. This can be useful, for example,
  * if you want to keep a log of messages.
  */
+
 public abstract class Message {
     // Static names of elements and attributes that we use in
     // We use these names to find particular elements in the document

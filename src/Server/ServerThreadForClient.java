@@ -83,7 +83,7 @@ public class ServerThreadForClient extends Thread {
                 Msg_Result result_msg = new Msg_Result();
                 result_msg.setUsername(login_msg.getUsername());
                 msgOut = result_msg;
-                System.out.println("msgOut isch: " + msgOut);
+                //System.out.println("msgOut isch: " + msgOut);
                 break;
             case Logout:
                 msgOut = new Msg_Logout();
@@ -94,10 +94,66 @@ public class ServerThreadForClient extends Thread {
 
 
             default:
-                msgOut = new Msg_Result();
+                msgOut = new Msg_Error();
         }
 
         return msgOut;
+    }
+
+    public static void passwordCheck(String password){
+        boolean valid = true;
+        if(password.length() < 3){
+            System.out.println("Password is not three characters long.");
+            valid = false;
+        }
+        if(password.length() > 20){
+            System.out.println("Password is too long.");
+            valid = false;
+        }
+        String upperCase = "(.*[A-Z].*)";
+        if(!password.matches(upperCase)){
+            System.out.println("Password must contain at least one capital letter.");
+            valid = false;
+        }
+        String numbers = "(.*[0-9].*)";
+        if(!password.matches(numbers)){
+            System.out.println("Password must contain at least one number.");
+            valid = false;
+        }
+
+        String space = "(.*[   ].*)";
+        if(password.matches(space)){
+            System.out.println("Password cannot contain a space.");
+            valid = false;
+        }
+
+        if(valid){
+            System.out.println("Password is valid.");
+        }
+
+    }
+
+    public static void titleCheck(String title){
+        boolean valid = true;
+        if(title.length() < 3){
+            System.out.println("Title is too short.");
+            valid = false;
+        }
+        if(title.length() > 20) {
+            System.out.println("Title is too long.");
+            valid = false;
+        }
+
+    }
+
+    public static void descriptionCheck(String description){
+        boolean valid = true;
+
+        if(description.length() > 256) {
+            System.out.println("Description is too long.");
+            valid = false;
+        }
+
     }
 
 }
