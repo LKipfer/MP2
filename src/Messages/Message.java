@@ -185,8 +185,8 @@ public abstract class Message {
             // newMessage.setTimestamp(Long.parseLong(findAttribute(pairs, ATTR_TIMESTAMP)));
             // newMessage.setClient(findAttribute(pairs, ATTR_CLIENT));
 
-            newMessage.setToken(Long.parseLong(findAttribute(pairs, ATTR_TOKEN)));
-            newMessage.setData(findAttribute(pairs, ATTR_DATA));
+            //newMessage.setToken(Long.parseLong(findAttribute(pairs, ATTR_TOKEN)));
+            //newMessage.setData(findAttribute(pairs, ATTR_DATA));
         }
 
         // Let the subclass read its additional attributes from the document
@@ -223,7 +223,7 @@ public abstract class Message {
 
         pairs.add(new NameValue(ATTR_TYPE, MessageType.getType(this).toString()));
         pairs.add(new NameValue(ATTR_TOKEN, Long.toString(this.token)));
-        pairs.add(new NameValue(ATTR_DATA, this.data));
+        //pairs.add(new NameValue(ATTR_DATA, this.data));
 
         // pairs.add(new NameValue(ATTR_CLIENT, this.client));
         // pairs.add(new NameValue(ATTR_ID, Long.toString(this.id)));
@@ -251,13 +251,7 @@ public abstract class Message {
         this.token = token;
     }
 
-    public String getData() {
-        return data;
-    }
 
-    public void setData(String data) {
-        this.data = data;
-    }
 
 }
 

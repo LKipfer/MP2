@@ -42,6 +42,7 @@ public class ServerThreadForClient extends Thread {
         // String clientName = msgIn.getClient();
 
         Message msgOut = null;
+        Msg_Result result_msg = new Msg_Result();
         switch (MessageType.getType(msgIn)) {
             /*
 
@@ -57,36 +58,60 @@ public class ServerThreadForClient extends Thread {
 
             */
             case ChangePw:
-                Msg_ChangePw cp_msg = (Msg_ChangePw) msgIn;
-                msgOut = new Msg_ChangePw();
+                Msg_ChangePw changepw_msg = (Msg_ChangePw) msgIn;
+                result_msg.setUsername(changepw_msg.getUsername());
+                result_msg.setPassword(changepw_msg.getPassword());
+                msgOut = result_msg;
                 break;
             case CreateLogin:
-                msgOut = new Msg_CreateLogin();
+                Msg_CreateLogin crlogin_msg = (Msg_CreateLogin) msgIn;
+                result_msg.setUsername(crlogin_msg.getUsername());
+                result_msg.setPassword(crlogin_msg.getPassword());
+                msgOut = result_msg;
                 break;
             case CreateToDo:
-                msgOut = new Msg_CreateToDo();
+                Msg_CreateToDo create_msg = (Msg_CreateToDo) msgIn;
+                result_msg.setTitle(create_msg.getTitle());
+                result_msg.setPriority(create_msg.getPriority());
+                result_msg.setDescription(create_msg.getDescription());
+                msgOut = result_msg;
                 break;
             case DeleteToDo:
-                msgOut = new Msg_DeleteToDo();
+                Msg_DeleteToDo del_msg = (Msg_DeleteToDo) msgIn;
+                result_msg.setTitle(del_msg.getTitle());
+                result_msg.setPriority(del_msg.getPriority());
+                result_msg.setDescription(del_msg.getDescription());
+                msgOut = result_msg;
                 break;
             case GetToDo:
-                msgOut = new Msg_GetToDo();
+                Msg_GetToDo get_msg = (Msg_GetToDo) msgIn;
+                result_msg.setTitle(get_msg.getTitle());
+                result_msg.setPriority(get_msg.getPriority());
+                result_msg.setDescription(get_msg.getDescription());
+                msgOut = result_msg;
                 break;
             case Goodbye:
 			    msgOut = new Msg_Goodbye();
 			    break;
             case ListToDo:
-                msgOut = new Msg_ListToDo();
+                Msg_ListToDo list_msg = (Msg_ListToDo) msgIn;
+                result_msg.setTitle(list_msg.getTitle());
+                result_msg.setPriority(list_msg.getPriority());
+                result_msg.setDescription(list_msg.getDescription());
+                msgOut = result_msg;
                 break;
             case Login:
                 Msg_Login login_msg = (Msg_Login) msgIn;
-                Msg_Result result_msg = new Msg_Result();
                 result_msg.setUsername(login_msg.getUsername());
+                result_msg.setPassword(login_msg.getPassword());
                 msgOut = result_msg;
                 //System.out.println("msgOut isch: " + msgOut);
                 break;
             case Logout:
-                msgOut = new Msg_Logout();
+                Msg_Logout logout_msg = (Msg_Logout) msgIn;
+                result_msg.setUsername(logout_msg.getUsername());
+                result_msg.setPassword(logout_msg.getPassword());
+                msgOut = result_msg;
                 break;
             case Ping:
                 msgOut = new Msg_Ping();
