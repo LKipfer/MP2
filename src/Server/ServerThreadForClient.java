@@ -2,7 +2,7 @@ package Server;
 
 import Messages.*;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.logging.Logger;
 
@@ -180,5 +180,73 @@ public class ServerThreadForClient extends Thread {
         }
 
     }
+
+    public static void mailChecker(String mail){
+        boolean valid = true;
+        String atsign = "(.*[@].*)";
+        if(atsign.matches(mail)){
+            System.out.println("You must use a mail-address to sign in");
+            valid = false;
+        }
+    }
+
+    /*  SAVE TO FILE
+    Only Todo entries and account infos
+
+    private void SaveToFile()
+    {
+        FileWriter fw;
+
+        try{
+            fw = new FileWriter(new File("geo-savefile.txt"));
+
+            for (var item:tvCountry.getItems()
+            ) {
+                fw.write(String.format("%s-%s-%s-%s-%s-%s", item.getId(), item.getName(), etc.);
+                fw.write(System.lineSeparator());
+            }
+
+            fw.close();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+     */
+
+    /* READ FROM FILE (also wait till done)
+    private String[] ReadFromFile()
+    {
+        BufferedReader br;
+        String[] lineList;
+
+        try{
+            br = new BufferedReader(new FileReader("geo-savefile.txt"));
+
+            int lines = 0;
+            while (br.readLine() != null) {
+                lines++;
+            }
+
+            br = new BufferedReader(new FileReader("geo-savefile.txt"));
+            lineList = new String[lines];
+            int i = 0;
+            while (i < lines)
+            {
+                lineList[i] = br.readLine();
+                i++;
+            }
+
+            return lineList;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+     */
 
 }

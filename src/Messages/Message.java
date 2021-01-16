@@ -42,7 +42,7 @@ public abstract class Message {
 
     //private long id;
     //private String client;
-    private long token = 1;
+    long token = (long) (Math.random() * (10000000 - 3) + 3);           //Still needs to be allocated to user (new token for every login)
     private String data;
 
 
@@ -114,7 +114,7 @@ public abstract class Message {
         try { // Ignore IO errors
             OutputStreamWriter out = new OutputStreamWriter(s.getOutputStream());
             out.write(message);
-            out.write("\n"); // empty line to end message, MUST STAY
+            out.write("\n"); // empty line to end message, MUST STAY?
             out.flush();
             s.shutdownOutput(); // ends output without closing socket
         } catch (Exception e) {
