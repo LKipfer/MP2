@@ -63,7 +63,7 @@ public class ServerThreadForClient extends Thread {
                 msgOut = new Msg_ChangePw();
                 break;
             case CreateLogin:
-                msgOut = new Msg_Result();
+                msgOut = new Msg_CreateLogin();
                 break;
             case CreateToDo:
                 msgOut = new Msg_CreateToDo();

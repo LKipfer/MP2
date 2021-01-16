@@ -29,7 +29,7 @@ public class ClientController {
         view.btnCreateLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayCreateLogin(view.txtClientName.getText());
+                String result = model.sayCreateLogin(view.txtUsername.getText(), view.txtPW.getText());
                 view.txtMessages.appendText("\nSaid 'create login', received: " + result);
             }
         });
@@ -38,7 +38,7 @@ public class ClientController {
         view.btnLogin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayLogin(view.txtClientName.getText());
+                String result = model.sayLogin(view.txtUsername.getText(), view.txtPW.getText());
                 view.txtMessages.appendText("\nSaid 'login', received: " + result);
             }
         });
@@ -47,7 +47,7 @@ public class ClientController {
         view.btnChangePw.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayChangePw(view.txtClientName.getText());
+                String result = model.sayChangePw(view.txtUsername.getText(), view.txtPW.getText());
                 view.txtMessages.appendText("\nSaid 'change password', received: " + result);
             }
         });
@@ -56,7 +56,7 @@ public class ClientController {
         view.btnLogout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayLogout(view.txtClientName.getText());
+                String result = model.sayLogout(view.txtUsername.getText(), view.txtPW.getText());
                 view.txtMessages.appendText("\nSaid 'logout', received: " + result);
             }
         });
@@ -65,7 +65,7 @@ public class ClientController {
         view.btnCreateToDo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayCreateToDo(view.txtClientName.getText());
+                String result = model.sayCreateToDo(view.txtTitle.getText(), view.txtPriority.getText(), view.txtDescription.getText());
                 view.txtMessages.appendText("\nSaid 'create to do', received: " + result);
             }
         });
@@ -74,7 +74,7 @@ public class ClientController {
         view.btnDeleteToDo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayDeleteToDo(view.txtClientName.getText());
+                String result = model.sayDeleteToDo(view.txtTitle.getText(), view.txtPriority.getText(), view.txtDescription.getText());
                 view.txtMessages.appendText("\nSaid 'delete to do', received: " + result);
             }
         });
@@ -83,7 +83,7 @@ public class ClientController {
         view.btnGetToDo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayGetToDo(view.txtClientName.getText());
+                String result = model.sayGetToDo(view.txtTitle.getText(), view.txtPriority.getText(), view.txtDescription.getText());
                 view.txtMessages.appendText("\nSaid 'get to do', received: " + result);
             }
         });
@@ -92,7 +92,7 @@ public class ClientController {
         view.btnListToDo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String result = model.sayListToDo(view.txtClientName.getText());
+                String result = model.sayListToDo(view.txtTitle.getText(), view.txtPriority.getText(), view.txtDescription.getText());
                 view.txtMessages.appendText("\nSaid 'list to do', received: " + result);
             }
         });

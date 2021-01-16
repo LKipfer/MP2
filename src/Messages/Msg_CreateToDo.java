@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Msg_CreateToDo extends Message{
 
-    private static final String ELEMENT_ID = "id";
+    private static final String ELEMENT_TODOID = "id";
     private static final String ELEMENT_TITLE = "title";
     private static final String ELEMENT_PRIORITY = "priority";
     private static final String ELEMENT_DESCRIPTION = "description";
@@ -20,7 +20,7 @@ public class Msg_CreateToDo extends Message{
 
     @Override
     protected void receiveAttributes(ArrayList<NameValue> pairs) {
-        this.tdID = Integer.parseInt(findAttribute(pairs, ELEMENT_ID)); //trying parseInt so id can stay an integer..
+        this.tdID = Integer.parseInt(findAttribute(pairs, ELEMENT_TODOID)); //trying parseInt so id can stay an integer..
         this.title = findAttribute(pairs, ELEMENT_TITLE);
         this.priority = findAttribute(pairs, ELEMENT_PRIORITY);
         this.description = findAttribute(pairs, ELEMENT_DESCRIPTION);
@@ -28,7 +28,7 @@ public class Msg_CreateToDo extends Message{
 
     @Override
     protected void sendAttributes(ArrayList<NameValue> pairs) {
-        pairs.add(new NameValue(ELEMENT_ID, Integer.toString(this.tdID)));
+        pairs.add(new NameValue(ELEMENT_TODOID, Integer.toString(this.tdID)));
         pairs.add(new NameValue(ELEMENT_TITLE, this.title));
         pairs.add(new NameValue(ELEMENT_PRIORITY, this.priority));
         pairs.add(new NameValue(ELEMENT_DESCRIPTION, this.description));

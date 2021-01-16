@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Msg_Result extends Message {
     private static final String ELEMENT_INFO = "info";
 
-    private String info;
+    private String info = "test";
 
     public Msg_Result() {
         super();

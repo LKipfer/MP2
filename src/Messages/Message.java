@@ -26,27 +26,30 @@ import java.util.Iterator;
 public abstract class Message {
     // Static names of elements and attributes that we use in
     // We use these names to find particular elements in the document
-    private static final String ATTR_TYPE = "type";
+
     // private static final String ATTR_CLIENT = "client";
+
+    private static final String ATTR_TYPE = "type";
     private static final String ATTR_TOKEN = "token";
+    private static final String ATTR_ID = "id";
 
     // The String corresponding to a message object
     private String message;
 
     // Data included in a message
-    private long token;
+    private long id;
     //private String client;
 
     // To Do: Generator for a unique message ID
-    private static long tokenID = 0;
+    private static long messageID = 0;
 
     /**
      * Increment the global messageID
      *
      * @return the next valid ID
      */
-    private static long nextMessageToken() {
-        return tokenID++;
+    private static long nextMessageID() {
+        return messageID++;
     }
 
     /**
@@ -73,7 +76,7 @@ public abstract class Message {
      */
 
     protected Message() {
-        this.token = -1;
+        this.id = -1;
         message = null; // Not yet constructed
     }
 
@@ -94,7 +97,7 @@ public abstract class Message {
      */
     public void send(Socket s) {
         // Set the message id before sending (if not already done)
-        if (this.token == -1) this.token = nextMessageToken();
+        if (this.id == -1) this.id = nextMessageID();
 
 
         // Convert to message format
@@ -164,7 +167,7 @@ public abstract class Message {
             newMessage = msg;
         } else {
             // no clue what this does?
-            newMessage.setToken(Long.parseLong(findAttribute(pairs, ATTR_TOKEN)));
+            newMessage.setId(Long.parseLong(findAttribute(pairs, ATTR_ID)));
             // DELETED: newMessage.setTimestamp(Long.parseLong(findAttribute(pairs, ATTR_TIMESTAMP)));
             // newMessage.setClient(findAttribute(pairs, ATTR_CLIENT));
         }
@@ -202,7 +205,7 @@ public abstract class Message {
 
         pairs.add(new NameValue(ATTR_TYPE, MessageType.getType(this).toString()));
         // pairs.add(new NameValue(ATTR_CLIENT, this.client));
-        pairs.add(new NameValue(ATTR_TOKEN, Long.toString(this.token)));
+        pairs.add(new NameValue(ATTR_ID, Long.toString(this.id)));
         // pairs.add(new NameValue(ATTR_TIMESTAMP, Long.toString(this.timestamp)));
 
         // Let the subclass add additional nodes, as required
@@ -219,12 +222,12 @@ public abstract class Message {
 
     // --- Getters and Setters ---
 
-    public long getToken() {
-        return token;
+    public long getId() {
+        return id;
     }
 
-    public void setToken(long token) {
-        this.token = token;
+    public void setId(long id) {
+        this.id = id;
     }
 
     /*public String getClient() {

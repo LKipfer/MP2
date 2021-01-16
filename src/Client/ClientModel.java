@@ -24,14 +24,13 @@ public class ClientModel {
         return socket;
     }
 
-    public String sayChangePw(String clientName) {
+    public String sayChangePw(String username, String password) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
             Msg_ChangePw msgOut = new Msg_ChangePw();
-            //msgOut.setClient(clientName);
-            msgOut.setUsername("Peter");
-            msgOut.setPassword("124");
+            msgOut.setUsername(username);
+            msgOut.setPassword(password);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -44,14 +43,13 @@ public class ClientModel {
         return result;
     }
 
-    public String sayCreateLogin(String clientName) {
+    public String sayCreateLogin(String username, String password) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
             Msg_CreateLogin msgOut = new Msg_CreateLogin();
-            //msgOut.setClient(clientName);
-            msgOut.setUsername("Jennifer Jumpingjacks");
-            msgOut.setPassword("123");
+            msgOut.setUsername(username);
+            msgOut.setPassword(password);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -64,12 +62,15 @@ public class ClientModel {
         return result;
     }
 
-    public String sayCreateToDo(String clientName) {
+    public String sayCreateToDo(String title, String priority, String description) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
-            Message msgOut = new Msg_CreateToDo();
-            //msgOut.setClient(clientName);
+            Msg_CreateToDo msgOut = new Msg_CreateToDo();
+            msgOut.setTitle(title);
+            msgOut.setPriority(priority);
+            msgOut.setDescription(description);
+
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -82,12 +83,15 @@ public class ClientModel {
         return result;
     }
 
-    public String sayDeleteToDo(String clientName) {
+    public String sayDeleteToDo(String title, String priority, String description){
         String result = null;
         Socket socket = connect();
         if (socket != null) {
-            Message msgOut = new Msg_DeleteToDo();
-            //msgOut.setClient(clientName);
+            Msg_DeleteToDo msgOut = new Msg_DeleteToDo();
+            msgOut.setTitle(title);
+            msgOut.setPriority(priority);
+            msgOut.setDescription(description);
+
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -100,12 +104,15 @@ public class ClientModel {
         return result;
     }
 
-    public String sayGetToDo(String clientName) {
+    public String sayGetToDo(String title, String priority, String description) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
-            Message msgOut = new Msg_GetToDo();
-            //msgOut.setClient(clientName);
+            Msg_GetToDo msgOut = new Msg_GetToDo();
+            msgOut.setTitle(title);
+            msgOut.setPriority(priority);
+            msgOut.setDescription(description);
+
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -118,12 +125,15 @@ public class ClientModel {
         return result;
     }
 
-    public String sayListToDo(String clientName) {
+    public String sayListToDo(String title, String priority, String description) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
-            Message msgOut = new Msg_ListToDo();
-            //msgOut.setClient(clientName);
+            Msg_ListToDo msgOut = new Msg_ListToDo();
+            msgOut.setTitle(title);
+            msgOut.setPriority(priority);
+            msgOut.setDescription(description);
+
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -136,12 +146,13 @@ public class ClientModel {
         return result;
     }
 
-    public String sayLogin(String clientName) {
+    public String sayLogin(String username, String password) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
-            Message msgOut = new Msg_Login();
-            //msgOut.setClient(clientName);
+            Msg_Login msgOut = new Msg_Login();
+            msgOut.setUsername(username);
+            msgOut.setPassword(password);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -154,12 +165,13 @@ public class ClientModel {
         return result;
     }
 
-    public String sayLogout(String clientName) {
+    public String sayLogout(String username, String password) {
         String result = null;
         Socket socket = connect();
         if (socket != null) {
-            Message msgOut = new Msg_Logout();
-            //msgOut.setClient(clientName);
+            Msg_Logout msgOut = new Msg_Logout();
+            msgOut.setUsername(username);
+            msgOut.setPassword(password);
             try {
                 msgOut.send(socket);
                 Message msgIn = Message.receive(socket);
@@ -250,6 +262,16 @@ public class ClientModel {
         }
         if(title.length() > 20) {
             System.out.println("Title is too long.");
+            valid = false;
+        }
+
+    }
+
+    public static void descriptionCheck(String description){
+        boolean valid = true;
+
+         if(description.length() > 256) {
+            System.out.println("Description is too long.");
             valid = false;
         }
 
